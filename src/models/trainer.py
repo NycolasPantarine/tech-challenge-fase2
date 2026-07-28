@@ -62,7 +62,7 @@ def compute_metrics(
 
 
 def train_and_register(
-    X: Any,
+    X: Any,  # noqa: N803
     y: np.ndarray,
     params: dict[str, Any],
     config: Any,
@@ -81,7 +81,7 @@ def train_and_register(
     mlflow.set_tracking_uri(config.mlflow_tracking_uri)
     mlflow.set_experiment(config.mlflow_experiment_name)
 
-    X_train, X_test, y_train, y_test = train_test_split(
+    X_train, X_test, y_train, y_test = train_test_split(  # noqa: N806
         X, y,
         test_size=config.test_size,
         random_state=config.random_state,
