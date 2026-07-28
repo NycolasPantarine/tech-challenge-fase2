@@ -14,9 +14,9 @@ venv/
 # Variáveis de ambiente (NUNCA commitar)
 .env
 
-# Dados brutos e processados (versionados pelo DVC)
-data/raw/
-data/processed/
+# Dados processados (gerados pelo pipeline — não commitar)
+/data/processed/*
+
 
 # Artefatos de modelo
 models/
