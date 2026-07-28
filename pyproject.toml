@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "tech-challenge-fase2"
+version = "0.1.0"
+description = "Pipeline de ML para previsão de propensão de compra em e-commerce"
+authors = ["Nycolas Pantarine Ortiz Barbosa <nycolas.pantarine@futtorh.com.br>"]
+readme = "README.md"
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.14"
+scikit-learn = "^1.9.0"
+mlflow = "^3.14.0"
+pandas = ">=1.0,<3.0"
+numpy = ">=1.24,<2.0"
+dvc = "^3.67.1"
+python-dotenv = "^1.2.2"
+joblib = "^1.5.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.1.1"
+pytest-cov = "^7.1.0"
+ruff = "^0.16.0"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --cov=src --cov-report=term-missing"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

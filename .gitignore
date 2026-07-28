@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+
+# Ambiente virtual
+.venv/
+venv/
+
+# Variáveis de ambiente (NUNCA commitar)
+.env
+
+# Dados brutos e processados (versionados pelo DVC)
+data/raw/
+data/processed/
+
+# Artefatos de modelo
+models/
+mlflow.db
+mlruns/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Cobertura de testes
+.coverage
+htmlcov/
+.pytest_cache/
+
+# IDEs
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log

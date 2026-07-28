@@ -1,0 +1,36 @@
+# Ambiente virtual
+.venv/
+venv/
+
+# Variáveis de ambiente
+.env
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Artefatos MLflow (gerados em runtime)
+mlruns/
+mlflow.db
+
+# Git
+.git/
+.gitignore
+
+# Testes e cobertura
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Jupyter
+notebooks/
+.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+.idea/
+
+# DVC cache local
+.dvc/cache/
+.dvc/tmp/
