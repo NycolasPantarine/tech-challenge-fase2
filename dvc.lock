@@ -45,8 +45,8 @@ stages:
       size: 2001
     - path: src/models/trainer.py
       hash: md5
-      md5: 430592e7a56c94069d38879c1a31cc0e
-      size: 3562
+      md5: 30f49c63ce7d3b0c31caf31e376c9784
+      size: 3590
     - path: src/pipeline.py
       hash: md5
       md5: 3ee7c2a1d50a86ac60765cdb14ba9055
