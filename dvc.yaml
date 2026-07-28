@@ -1,0 +1,23 @@
+stages:
+  preprocess:
+    cmd: poetry run python -m src.preprocess
+    deps:
+      - data/raw/online_shoppers.csv
+      - src/preprocess.py
+      - src/data/loader.py
+      - src/features/preprocessor.py
+      - configs/params.yaml
+    outs:
+      - data/processed/dataset_processed.csv
+
+  train:
+    cmd: poetry run python -m src.pipeline
+    deps:
+      - data/processed/dataset_processed.csv
+      - src/pipeline.py
+      - src/models/trainer.py
+      - src/features/preprocessor.py
+      - configs/params.yaml
+    metrics:
+      - metrics.json:
+          cache: false

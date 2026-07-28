@@ -1,11 +1,12 @@
-"""Pipeline principal: orquestra carregamento, pré-processamento e treinamento."""
+"""Pipeline principal: orquestra treinamento e registro do modelo."""
 
+import json
 import logging
 
+import pandas as pd
 import yaml
 
-from src.data.loader import get_feature_target_split, load_dataset
-from src.features.preprocessor import encode_target
+from src.data.loader import get_feature_target_split
 from src.models.trainer import train_and_register
 from src.utils.config import load_config
 
@@ -27,27 +28,37 @@ def load_params(params_path: str = "configs/params.yaml") -> dict:
         Dicionário com os parâmetros do modelo.
     """
     with open(params_path) as f:
-        params = yaml.safe_load(f)
-    return params
+        return yaml.safe_load(f)
+
+
+def save_metrics(metrics: dict[str, float], output_path: str = "metrics.json") -> None:
+    """Salva as métricas do modelo em arquivo JSON para o DVC.
+
+    Args:
+        metrics: dicionário com métricas calculadas.
+        output_path: caminho do arquivo de saída.
+    """
+    with open(output_path, "w") as f:
+        json.dump(metrics, f, indent=2)
+    logger.info("Métricas salvas em: %s", output_path)
 
 
 def run_pipeline() -> None:
-    """Executa o pipeline completo de ML de ponta a ponta."""
+    """Executa o pipeline de treinamento de ponta a ponta."""
     logger.info("Iniciando pipeline de propensão de compra")
 
     config = load_config()
     params = load_params()
 
-    logger.info("Carregando dataset")
-    df = load_dataset(config.data_raw_path)
+    logger.info("Carregando dados processados")
+    df = pd.read_csv(config.data_processed_path)
 
-    logger.info("Separando features e target")
     X, y = get_feature_target_split(df, params["data"]["target_column"])  # noqa: N806
-    y = encode_target(y)
 
     logger.info("Iniciando treinamento e tracking com MLflow")
-    run_id = train_and_register(X, y, params["model"], config)
+    run_id, metrics = train_and_register(X, y, params["model"], config)
 
+    save_metrics(metrics)
     logger.info("Pipeline concluído com sucesso | run_id: %s", run_id)
 
 

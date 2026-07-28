@@ -1,0 +1,58 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: poetry run python -m src.preprocess
+    deps:
+    - path: configs/params.yaml
+      hash: md5
+      md5: 1efdc4161b0b5559738fa814a8d70640
+      size: 305
+    - path: data/raw/online_shoppers.csv
+      hash: md5
+      md5: cc6ec1db03b4f10f8de52c56ff48b085
+      size: 1072063
+    - path: src/data/loader.py
+      hash: md5
+      md5: 6c1f34e4d6a2bc33e5bc47ae6d32ac3f
+      size: 2288
+    - path: src/features/preprocessor.py
+      hash: md5
+      md5: 8ada5ff011c571eb2b84276f1a1fa354
+      size: 2001
+    - path: src/preprocess.py
+      hash: md5
+      md5: 8885dd1ea563dbd366f96ea91824b443
+      size: 1582
+    outs:
+    - path: data/processed/dataset_processed.csv
+      hash: md5
+      md5: 0a0fdb95aae35fdda2841be055f57556
+      size: 3415808
+  train:
+    cmd: poetry run python -m src.pipeline
+    deps:
+    - path: configs/params.yaml
+      hash: md5
+      md5: 1efdc4161b0b5559738fa814a8d70640
+      size: 305
+    - path: data/processed/dataset_processed.csv
+      hash: md5
+      md5: 0a0fdb95aae35fdda2841be055f57556
+      size: 3415808
+    - path: src/features/preprocessor.py
+      hash: md5
+      md5: 8ada5ff011c571eb2b84276f1a1fa354
+      size: 2001
+    - path: src/models/trainer.py
+      hash: md5
+      md5: 430592e7a56c94069d38879c1a31cc0e
+      size: 3562
+    - path: src/pipeline.py
+      hash: md5
+      md5: 3ee7c2a1d50a86ac60765cdb14ba9055
+      size: 1924
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: ecf048f8c6f2baaa49c695744693df0c
+      size: 170
