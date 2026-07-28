@@ -17,9 +17,8 @@ venv/
 # Dados processados (gerados pelo pipeline — não commitar)
 /data/processed/*
 
-
-# Artefatos de modelo
-models/
+# Artefatos de modelo (apenas a pasta raiz, não src/models/)
+/models/
 mlflow.db
 mlruns/
 
